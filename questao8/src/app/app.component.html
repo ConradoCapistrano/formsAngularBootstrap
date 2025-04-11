@@ -1,0 +1,47 @@
+<section class="container mt-4">
+  <h1>Suas informações</h1>
+  <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label class="form-label">Nome completo</label>
+      <input type="text" class="form-control" placeholder="João da Silva"
+             formControlName="nome"
+             [ngClass]="{'is-valid': nome.valid && nome.touched, 'is-invalid': nome.invalid && nome.touched}" />
+      <div *ngIf="nome.invalid && nome.touched" class="invalid-feedback">
+        Nome é obrigatório e deve ter no máximo 35 caracteres.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">E-mail</label>
+      <input type="email" class="form-control" placeholder="joaodasilva@example.com"
+             formControlName="email"
+             [ngClass]="{'is-valid': email.valid && email.touched, 'is-invalid': email.invalid && email.touched}" />
+      <div *ngIf="email.invalid && email.touched" class="invalid-feedback">
+        E-mail inválido.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Telefone</label>
+      <input type="tel" class="form-control" placeholder="11999999999"
+             formControlName="telefone"
+             [ngClass]="{'is-valid': telefone.valid && telefone.touched, 'is-invalid': telefone.invalid && telefone.touched}" />
+      <div *ngIf="telefone.invalid && telefone.touched" class="invalid-feedback">
+        O telefone deve conter exatamente 11 dígitos numéricos.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Data de nascimento</label>
+      <input type="date" class="form-control"
+             min="1900-01-01"
+             formControlName="dataNascimento"
+             [ngClass]="{'is-valid': dataNascimento.valid && dataNascimento.touched, 'is-invalid': dataNascimento.invalid && dataNascimento.touched}" />
+      <div *ngIf="dataNascimento.invalid && dataNascimento.touched" class="invalid-feedback">
+        Data inválida.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Next</button>
+  </form>
+</section>
