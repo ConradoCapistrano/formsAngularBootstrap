@@ -1,10 +1,8 @@
-
 <main class="container mt-4">
   <section class="row">
     <div class="col-md-6 d-flex align-items-center justify-content-center">
       <figure>
-        <img src="../assets/moon.png" class="img-fluid rounded" alt="Imagem informativa sobre o formulário">
-        <figcaption class="visually-hidden">Imagem representando a temática do formulário</figcaption>
+        <img src="../assets/moon.webp" class="img-fluid rounded" alt="Imagem informativa sobre o formulário">
       </figure>
     </div>
 
@@ -39,7 +37,7 @@
             <div class="col">
               <label for="estado" class="form-label">Estado</label>
               <select id="estado" class="form-select" formControlName="estado">
-                <option selected value="">Selecione</option>
+                <option value="">Selecione</option>
                 @for (estado of estadosDisponiveis; track estado.sigla) {
                   <option [value]="estado.nome">{{ estado.nome }}</option>
                 }
@@ -52,7 +50,7 @@
               <label for="cidade" class="form-label">Cidade</label>
               <select id="cidade" class="form-select" formControlName="cidade">
                 <option selected value="">Selecione</option>
-                @for (cidade of cidadesDisponiveis(); track cidade) {
+                @for (cidade of cidadesDisponiveis; track cidade) {
                   <option [value]="cidade">{{ cidade }}</option>
                 }
               </select>
@@ -77,4 +75,4 @@
       </section>
     </div>
   </section>
-</main>
+</main> 

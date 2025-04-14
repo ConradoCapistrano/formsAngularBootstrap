@@ -1,6 +1,7 @@
-import { Component, OnInit, computed, signal, effect } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 interface Estado {
   sigla: string;
@@ -15,16 +16,18 @@ interface Estado {
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnDestroy {
   title = 'questao9';
 
   form: FormGroup;
 
   estadosDisponiveis: Estado[] = [
-    { sigla: 'PE', nome: 'Pernambuco', cidades: ['Recife', 'Olinda', 'Jaboatão', 'Vitória'] }
+    { sigla: 'PE', nome: 'Pernambuco', cidades: ['Recife', 'Olinda', 'Jaboatão', 'Vitória'] },
+    { sigla: 'CE', nome: 'Ceara', cidades: ['Fortaleza', 'Acarape', 'Itapipoca', 'Sobral'] }
   ];
 
-  cidadesDisponiveis = signal<string[]>([]);
+  cidadesDisponiveis: string[] = [];
+  private estadoSubscription: Subscription;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -34,37 +37,28 @@ export class AppComponent implements OnInit {
       cidade: ['', Validators.required],
       instituicao: ['', Validators.required],
     });
-  }
-  
-  ngOnInit(): void {
-    // Primeiro carregamos as cidades para o estado padrão
-    this.carregarCidadesParaEstado('Pernambuco');
 
-    // Depois configuramos o effect para futuras mudanças
-    effect(() => {
-      const estadoSelecionado = this.estado.value;
-      this.carregarCidadesParaEstado(estadoSelecionado);
-    });
-
-    // Definimos o valor padrão após configurar tudo
-    this.form.patchValue({
-      estado: 'Pernambuco'
-    });
-  }
-
-  private carregarCidadesParaEstado(estadoNome: string): void {
-    const estadoEncontrado = this.estadosDisponiveis.find(e => e.nome === estadoNome);
-    if (estadoEncontrado) {
-      this.cidadesDisponiveis.set(estadoEncontrado.cidades);
-      // Se estamos definindo o estado inicial, também definimos a primeira cidade como padrão
-      if (this.estado.value === estadoNome && estadoEncontrado.cidades.length > 0) {
-        this.form.patchValue({
-          cidade: estadoEncontrado.cidades[0]
-        });
+    this.estadoSubscription = this.estado.valueChanges.subscribe(estadoSelecionado => {
+      if (estadoSelecionado) {
+        const estadoEncontrado = this.estadosDisponiveis.find(e => e.nome === estadoSelecionado);
+        if (estadoEncontrado) {
+          this.cidadesDisponiveis = estadoEncontrado.cidades;
+          this.cidade.setValue('');
+        }
+      } else {
+        this.cidadesDisponiveis = [];
+        this.cidade.setValue('');
       }
-    } else {
-      this.cidadesDisponiveis.set([]);
-    }
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Cancela a subscription para evitar memory leaks
+    this.estadoSubscription.unsubscribe();
+    // Reseta o formulário
+    this.form.reset();
+    // Limpa a lista de cidades
+    this.cidadesDisponiveis = [];
   }
 
   get nome(): FormControl {
@@ -88,6 +82,7 @@ export class AppComponent implements OnInit {
       console.log(this.form.value);
       alert('Formulário enviado!');
       this.form.reset();
+      this.cidadesDisponiveis = [];
     } else {
       this.form.markAllAsTouched();
     }
