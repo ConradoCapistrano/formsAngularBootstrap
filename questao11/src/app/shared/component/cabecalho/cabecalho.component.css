@@ -1,3 +1,18 @@
 .cabecalho {
-    background-image: url('../../../../assets/fundo-cabecalho.png');
+    background: url('../../../../assets/fundo-cabecalho.png');
+    background-size: cover;
+}
+
+.cabecalho p {
+    color: #6BD1FF;
+}
+
+.cabecalho .logo img {
+    max-width: 350px;
+}
+
+@media (max-width: 576px) {
+    .cabecalho .logo img {
+        max-width: 250px;
+    }
 }
