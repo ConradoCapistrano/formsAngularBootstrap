@@ -1,0 +1,94 @@
+<section class="container editar-formulario ff-inter">
+  <app-sub-titulo-formulario [texto]="'Editar Pensamento'"></app-sub-titulo-formulario>
+  <form>
+    <label for="pensamento">Pensamento</label>
+    <textarea
+      maxlength="300"
+      class="input textarea"
+      type="textarea"
+      id="pensamento"
+      name="pensamento"
+      placeholder="Digite o pensamento"
+      [(ngModel)]="formulario.conteudo"
+    ></textarea>
+    <label for="autoria">Autoria ou fonte</label>
+    <input
+      type="text"
+      class="input"
+      id="autoria"
+      name="autoria"
+      placeholder="Digite a autoria ou fonte"
+      [(ngModel)]="formulario.autoria"
+    >
+    <label for="modelo">Selecione o modelo do card:</label>
+    <div class="container-radio">
+      <div class="radio-modelo">
+        <label for="modelo1">
+          <input
+            type="radio"
+            id="modelo1"
+            value="modelo1"
+            name="modelo-card"
+            [(ngModel)]="formulario.modelo"
+          >
+          <div class="custom-radio">
+            <span></span>
+          </div>
+          <span>Modelo 1</span>
+        </label>
+        <div class="modelo modelo1 ff-roboto-mono">
+          <div class="previa-placeholder">Prévia</div>
+          <p class="conteudo">{{ formulario.conteudo }}</p>
+          <p class="autoria"><b>{{ formulario.autoria }}</b></p>
+        </div>
+      </div>
+
+      <div class="radio-modelo">
+        <label for="modelo2">
+          <input
+            type="radio"
+            id="modelo2"
+            value="modelo2"
+            name="modelo-card"
+            [(ngModel)]="formulario.modelo"
+          >
+          <div class="custom-radio">
+            <span></span>
+          </div>
+          <span>Modelo 2</span>
+        </label>
+        <div class="modelo modelo2 ff-roboto-mono">
+          <div class="previa-placeholder">Prévia</div>
+          <p class="conteudo">{{ formulario.conteudo }}</p>
+          <p class="autoria"><b>{{ formulario.autoria }}</b></p>
+        </div>
+      </div>
+
+      <div class="radio-modelo">
+        <label for="modelo3">
+          <input
+            type="radio"
+            id="modelo3"
+            value="modelo3"
+            name="modelo-card"
+            [(ngModel)]="formulario.modelo"
+          >
+          <div class="custom-radio">
+            <span></span>
+          </div>
+          <span>Modelo 3</span>
+        </label>
+        <div class="modelo modelo3 ff-roboto-mono">
+          <div class="previa-placeholder">Prévia</div>
+          <p class="conteudo">{{ formulario.conteudo }}</p>
+          <p class="autoria"><b>{{ formulario.autoria }}</b></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center gap-3">
+      <app-botao-formulario [texto]="'Salvar'" [estilo]="estiloBotao" (acao)="editarFormulario()"></app-botao-formulario>
+      <app-botao-formulario [texto]="'Cancelar'" [estilo]="estiloBotao" (acao)="cancelar()"></app-botao-formulario>
+    </div>
+  </form>
+</section>
