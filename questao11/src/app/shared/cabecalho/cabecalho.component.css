@@ -1,0 +1,15 @@
+.cabecalho {
+  background-image: url('/assets/fundo-cabecalho.webp');
+  background-size: cover;
+}
+.cabecalho p {
+  color: #6BD1FF;
+}
+.cabecalho .logo img {
+  max-width: 300px;
+}
+@media (max-width: 576px) {
+  .cabecalho .logo img {
+    max-width: 250px;
+  }
+}
