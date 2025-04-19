@@ -1,0 +1,56 @@
+<section class="container criar-formulario py-4 ff-inter">
+  <app-sub-titulo-formulario [texto]="'Adicione um <br>pensamento novo:'"></app-sub-titulo-formulario>
+
+  <form>
+    <label for="pensamento">Pensamento</label>
+    <textarea
+      maxlength="300"
+      class="input textarea"
+      id="pensamento"
+      name="pensamento"
+      placeholder="Digite seu pensamento."
+      [(ngModel)]="formulario.conteudo"
+    ></textarea>
+
+    <label for="autoria">Autor(a) ou Fonte</label>
+    <input
+      maxlength="50"
+      type="text"
+      class="input"
+      id="autoria"
+      name="autoria"
+      placeholder="Insira o nome do(a) autor(a) ou fonte."
+      [(ngModel)]="formulario.autoria"
+    >
+
+    <label for="modelo">Selecione o modelo do card:</label>
+
+    <div class="container-radio">
+      <div class="radio-modelo" *ngFor="let modelo of MODELOS">
+        <label [for]="modelo.id">
+          <input
+            type="radio"
+            [id]="modelo.id"
+            [value]="modelo.id"
+            name="modelo-card"
+            [(ngModel)]="formulario.modelo"
+          >
+          <div class="custom-radio">
+            <span style="transition: 0.5s ease; color: #154580;"></span>
+          </div>
+          <span>{{ modelo.nome }}</span>
+        </label>
+        <div class="modelo {{ modelo.classe }} ff-roboto-mono">
+          <div class="previa-placeholder">Prévia</div>
+          <p class="conteudo">{{ formulario.conteudo || 'Pensamento' }}</p>
+          <p class="autoria"><b>{{ formulario.autoria || 'Autor(a)' }}</b></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center gap-3">
+      <app-botao-formulario [texto]="'Salvar'" [estilo]="estiloBotao" (acao)="criarPensamento()"></app-botao-formulario>
+      <app-botao-formulario [texto]="'Cancelar'" [estilo]="estiloBotao" (acao)="cancelar()"></app-botao-formulario>
+    </div>
+  </form>
+</section>
