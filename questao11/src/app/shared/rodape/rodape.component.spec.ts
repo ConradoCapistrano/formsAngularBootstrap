@@ -11,7 +11,7 @@ describe('RodapeComponent', () => {
       imports: [RodapeComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(RodapeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
