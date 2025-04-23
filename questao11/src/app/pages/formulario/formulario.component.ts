@@ -16,9 +16,9 @@ export class FormularioComponent {
 
   @Input() formulario: Formulario = {
     id: 0,
-    conteudo: 'exemplo de texto',
-    autoria: 'Conrado',
-    modelo: 'modelo1'
+    pensamentoTexto: 'exemplo de texto',
+    autor: 'Conrado',
+    modelo: 1
   }
   @Output() formularioExcluido = new EventEmitter<number>();
 
@@ -30,4 +30,7 @@ export class FormularioComponent {
     }
   }
 
+  getModeloClass(): string {
+    return `modelo${this.formulario.modelo}`;
+  }
 }

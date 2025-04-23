@@ -1,7 +1,7 @@
-<div class="formulario {{ formulario.modelo }} ff-inter fw-normal fs-6 lh-base p-3 mb-3 rounded-3 bg-white">
+<div class="formulario ff-inter fw-normal fs-6 lh-base p-3 mb-3 rounded-3 bg-white" [ngClass]="getModeloClass()">
   <img src="/assets/{{ formulario.modelo }}.webp" alt="Aspas coloridas">
-  <p class="text-break my-3 text-conteudo">{{ formulario.conteudo }}</p>
-  <p class="text-break text-autor"><b>{{ formulario.autoria }}</b></p>
+  <p class="text-break my-3 text-conteudo">{{ formulario.pensamentoTexto }}</p>
+  <p class="text-break text-autor"><b>{{ formulario.autor }}</b></p>
   <div>
     <button class="botao-editar btn p-0">
       <img
