@@ -1,6 +1,12 @@
 export interface Formulario {
   id?: number
-  conteudo: string
-  autoria: string
-  modelo: string
+  pensamentoTexto: string
+  autor: string
+  modelo: number
+}
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
 }
