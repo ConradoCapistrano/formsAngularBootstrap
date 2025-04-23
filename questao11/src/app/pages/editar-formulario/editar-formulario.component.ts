@@ -6,22 +6,22 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SubTituloFormularioComponent } from '../../shared/sub-titulo-formulario/sub-titulo-formulario.component';
 import { BotaoFormularioComponent } from '../../shared/botao-formulario/botao-formulario.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editar-formulario',
   standalone: true,
   imports: [FormsModule, CommonModule, SubTituloFormularioComponent, BotaoFormularioComponent],
   templateUrl: './editar-formulario.component.html',
-  styleUrl: './editar-formulario.component.css'
+  styleUrls: ['./editar-formulario.component.css']
 })
 export class EditarFormularioComponent implements OnInit {
-
   formulario: Formulario = {
     id: 0,
-    conteudo: '',
-    autoria: '',
-    modelo: 'modelo1'
-  }
+    pensamentoTexto: '',
+    autor: '',
+    modelo: 1
+  };
 
   estiloBotao = 'botao btn text-light';
 
@@ -32,19 +32,65 @@ export class EditarFormularioComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id')
-    this.service.obterPorId(parseInt(id!)).subscribe((formulario) => {
-      this.formulario = formulario
-    })
+    this.carregarPensamento();
   }
 
-  editarFormulario() {
-    this.service.editar(this.formulario).subscribe(() => {
-      this.router.navigate(['/mural'])
-    })
-
+carregarPensamento(): void {
+  const id = this.route.snapshot.paramMap.get('id');
+  if (!id || isNaN(+id)) {
+    Swal.fire('Erro', 'ID do pensamento inválido', 'error');
+    this.router.navigate(['/mural']);
+    return;
   }
-  cancelar() {
-    this.router.navigate(['/mural'])
+
+  this.service.obterPorId(+id).subscribe({
+    next: (response) => {
+      this.formulario = {
+        id: response.data.id,
+        pensamentoTexto: response.data.pensamentoTexto || '',
+        autor: response.data.autor || '',
+        modelo: response.data.modelo || 1
+      };
+    },
+    error: (error) => {
+      console.error('Erro ao carregar:', error);
+      Swal.fire('Erro', error.message || 'Não foi possível carregar o pensamento', 'error');
+      this.router.navigate(['/mural']);
+    }
+  });
+}
+
+editarFormulario(): void {
+  if (!this.formulario.id) {
+    Swal.fire('Erro', 'ID do pensamento inválido', 'error');
+    return;
+  }
+
+  console.log('Dados antes de editar:', this.formulario);
+
+  this.service.editar(this.formulario).subscribe({
+    next: (response) => {
+      console.log('Resposta da edição:', response);
+      Swal.fire({
+        title: 'Sucesso!',
+        text: 'Pensamento atualizado com sucesso',
+        icon: 'success'
+      }).then(() => {
+        this.router.navigate(['/mural']);
+      });
+    },
+    error: (error) => {
+      console.error('Erro completo:', error);
+      Swal.fire({
+        title: 'Erro na Edição',
+        text: error.message || 'Detalhes do erro consulte o console',
+        icon: 'error'
+      });
+    }
+  });
+}
+
+  cancelar(): void {
+    this.router.navigate(['/mural']);
   }
 }
