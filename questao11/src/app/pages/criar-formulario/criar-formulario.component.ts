@@ -17,17 +17,17 @@ import { BotaoFormularioComponent } from '../../shared/botao-formulario/botao-fo
 export class CriarFormularioComponent {
 
   formulario: Formulario = {
-    conteudo: '',
-    autoria: '',
-    modelo: 'modelo1'
+    pensamentoTexto: '',
+    autor: '',
+    modelo: 1
   };
 
   estiloBotao = 'botao btn text-light';
 
   readonly MODELOS = [
-    { id: 'modelo1', nome: 'Modelo 1', classe: 'modelo1' },
-    { id: 'modelo2', nome: 'Modelo 2', classe: 'modelo2' },
-    { id: 'modelo3', nome: 'Modelo 3', classe: 'modelo3' }
+    { id: 1, nome: 'Modelo 1', classe: 'modelo1' },
+    { id: 2, nome: 'Modelo 2', classe: 'modelo2' },
+    { id: 3, nome: 'Modelo 3', classe: 'modelo3' }
   ];
 
   constructor(

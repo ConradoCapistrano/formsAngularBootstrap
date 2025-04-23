@@ -9,7 +9,7 @@
       id="pensamento"
       name="pensamento"
       placeholder="Digite seu pensamento."
-      [(ngModel)]="formulario.conteudo"
+      [(ngModel)]="formulario.pensamentoTexto"
     ></textarea>
 
     <label for="autoria">Autor(a) ou Fonte</label>
@@ -20,7 +20,7 @@
       id="autoria"
       name="autoria"
       placeholder="Insira o nome do(a) autor(a) ou fonte."
-      [(ngModel)]="formulario.autoria"
+      [(ngModel)]="formulario.autor"
     >
 
     <label for="modelo">Selecione o modelo do card:</label>
@@ -42,8 +42,8 @@
         </label>
         <div class="modelo {{ modelo.classe }} ff-roboto-mono">
           <div class="previa-placeholder">Prévia</div>
-          <p class="conteudo">{{ formulario.conteudo || 'Pensamento' }}</p>
-          <p class="autoria"><b>{{ formulario.autoria || 'Autor(a)' }}</b></p>
+          <p class="conteudo">{{ formulario.pensamentoTexto || 'Pensamento' }}</p>
+          <p class="autoria"><b>{{ formulario.autor || 'Autor(a)' }}</b></p>
         </div>
       </div>
     </div>
