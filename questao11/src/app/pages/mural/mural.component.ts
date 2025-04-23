@@ -23,9 +23,16 @@ export class MuralComponent implements OnInit{
     this.carregarPensamento();
   }
 
-  carregarPensamento() {
-    this.service.listar().subscribe((mural) => {
-      this.mural = mural;
+  carregarPensamento(): void {
+    this.service.listar().subscribe({
+      next: (response) => {
+        console.log('Pensamentos carregados:', response);
+        this.mural = response;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar pensamentos:', error);
+        Swal.fire('Erro', 'Não foi possível carregar os pensamentos', 'error');
+      }
     });
   }
 
