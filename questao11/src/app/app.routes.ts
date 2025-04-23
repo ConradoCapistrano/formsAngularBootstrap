@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { MuralComponent } from './pages/mural/mural.component';
-import { CriarFormularioComponent } from './pages/criar-formulario/criar-formulario.component';
 
 export const routes: Routes = [
   {
